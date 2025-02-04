@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Sınav Sonucu - Python Testi</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .result-container {
+      margin-top: 100px;
+      max-width: 600px;
+      background: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .result-container h2 {
+      margin-bottom: 20px;
+    }
+    .score {
+      font-size: 48px;
+      font-weight: bold;
+      color: #28a745;
+    }
+    footer {
+      color: gray;
+      text-align: center;
+      padding: 10px 0;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container result-container">
+    <h2>Sınav Sonucunuz</h2>
+    <p>Bu sınavdaki skorunuz:</p>
+    <div class="score">%{{ score|round(0) }}</div>
+    <hr>
+    <p>Sizin en yüksek skorunuz: <strong>%{{ user_highest|round(0) }}</strong></p>
+    <p>Tüm kullanıcılar arasındaki en yüksek skor: <strong>%{{ global_max|round(0) }}</strong></p>
+    <a href="/quiz" class="btn btn-primary mt-3">Testi Tekrar Yap</a>
+    <a href="/" class="btn btn-primary mt-3">Ana Sayfaya Dön</a>
+  </div>
+  <footer>
+    <p>Bu uygulama Efe Can YEMEZ tarafından geliştirilmiştir. © 2025</p>
+  </footer>
+</body>
+</html>

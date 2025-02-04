@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Ana Sayfa - Python Testi</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .container {
+      margin-top: 100px;
+      text-align: center;
+    }
+    .btn-custom {
+      background-color: #007BFF;
+      color: #fff;
+    }
+    footer {
+      color: gray;
+      text-align: center;
+      padding: 10px 0;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Python Testi</h1>
+
+    {% if user %}
+      <p class="text-success"><strong>Merhaba, {{ user.username }}!</strong></p>
+      <a href="/quiz" class="btn btn-custom">Sınava Başla</a>
+      <a href="/logout" class="btn btn-secondary">Çıkış Yap</a>
+    {% else %}
+      <a href="/login" class="btn btn-custom">Giriş Yap</a>
+      <a href="/register" class="btn btn-secondary">Kayıt Ol</a>
+    {% endif %}
+</div>
+<footer>
+  <p>Bu uygulama Efe Can YEMEZ tarafından geliştirilmiştir. © 2025</p>
+</footer>
+</body>
+</html>

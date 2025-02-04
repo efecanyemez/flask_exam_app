@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Sınav - Python Testi</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .quiz-container {
+      margin-top: 50px;
+      max-width: 800px;
+      background: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    .question {
+      margin-bottom: 20px;
+      padding: 20px;
+      border: 1px solid #dee2e6;
+      border-radius: 5px;
+      background-color: #f1f1f1;
+    }
+    .question p {
+      font-weight: bold;
+    }
+    .score-container {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 20px;
+    }
+    .score-box {
+      padding: 10px 20px;
+      font-size: 14px;
+      text-align: right;
+      min-width: 250px;
+    }
+    .alert-danger {
+      display: none;
+    }
+    footer {
+      color: gray;
+      text-align: center;
+      padding: 10px 0;
+      margin-top: 20px;
+    }
+  </style>
+  <script>
+    function validateQuiz() {
+        let questions = document.querySelectorAll(".question");
+        let unanswered = [];
+
+        questions.forEach((q, index) => {
+            let questionId = q.dataset.id;
+            let selected = document.querySelector(`input[name="${questionId}"]:checked`);
+            if (!selected) {
+                unanswered.push(index + 1);
+            }
+        });
+
+        if (unanswered.length > 0) {
+            let alertBox = document.getElementById("error-alert");
+            alertBox.style.display = "block";
+            alertBox.innerHTML = "Lütfen tüm soruları cevaplayın! Cevaplanmayan sorular: " + unanswered.join(", ");
+            return false;
+        }
+
+        return true;
+    }
+  </script>
+</head>
+<body>
+
+  <div class="container quiz-container">
+    <h2 class="text-center mb-4">Python Testi</h2>
+
+    <div class="score-container">
+      <div class="score-box">
+        <p><strong>Kişisel En Yüksek Skor:</strong> %{{ user_highest|round(0) }}</p>
+        <p><strong>Genel En Yüksek Skor:</strong> %{{ global_max|round(0) }}</p>
+      </div>
+    </div>
+
+    <form method="POST" onsubmit="return validateQuiz();">
+      <input type="hidden" name="question_ids" value="{{ question_ids }}">
+  
+      {% for question in questions %}
+        <div class="question" data-id="{{ question.id }}">
+          <p>{{ question.question_text }}</p>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="{{ question.id }}" value="A" id="q{{ question.id }}A">
+            <label class="form-check-label" for="q{{ question.id }}A">{{ question.option_a }}</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="{{ question.id }}" value="B" id="q{{ question.id }}B">
+            <label class="form-check-label" for="q{{ question.id }}B">{{ question.option_b }}</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="{{ question.id }}" value="C" id="q{{ question.id }}C">
+            <label class="form-check-label" for="q{{ question.id }}C">{{ question.option_c }}</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="{{ question.id }}" value="D" id="q{{ question.id }}D">
+            <label class="form-check-label" for="q{{ question.id }}D">{{ question.option_d }}</label>
+          </div>
+        </div>
+      {% endfor %}
+  
+      <div id="error-alert" class="alert alert-danger text-center mt-3"></div>
+  
+      <div class="text-center mt-3">
+        <button type="submit" class="btn btn-success">Sınavı Bitir</button>
+      </div>
+  </form>
+  </div>
+  <footer>
+    <p>Bu uygulama Efe Can YEMEZ tarafından geliştirilmiştir. © 2025</p>
+  </footer>
+
+</body>
+</html>
